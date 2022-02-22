@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ThirdPersonMovement : MonoBehaviour
 {
-    
+
     public CharacterController controller;
     public Transform cam;
 
@@ -55,12 +55,13 @@ public class ThirdPersonMovement : MonoBehaviour
 
         // Gravity Code
         // if its on the ground, vertical velocity is 0
-        if (controller.isGrounded)
+        // if(controller.isGrounded)
+        if (IsGrounded())
         {
             verticalVelocity = 0f;
         }
         // if on the ground and space is pushed, verticalVelocity changes
-        if (controller.isGrounded && Input.GetButtonDown("Jump"))
+        if (IsGrounded() && Input.GetButtonDown("Jump"))
         {
             verticalVelocity = jumpHeight;
         }
@@ -72,4 +73,25 @@ public class ThirdPersonMovement : MonoBehaviour
 
 
     }
+    private bool IsGrounded()
+    {
+        float extraHeight = 0.1f;
+
+        // finds the middle of the box collider
+        //Vector3 colliderLocation = capsuleCollider.bounds.center;
+        Color rayColor;
+        bool hasHit = Physics.Raycast(controller.bounds.center, Vector3.down, controller.bounds.extents.y + extraHeight);
+
+        if (hasHit)
+        {
+            rayColor = Color.green;
+        }
+        else
+        {
+            rayColor = Color.red;
+        }
+        Debug.DrawRay(controller.bounds.center, Vector3.down * (controller.bounds.extents.y + extraHeight), rayColor);
+        return hasHit;
+    }
 }
+
