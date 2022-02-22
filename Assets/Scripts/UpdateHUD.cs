@@ -23,10 +23,13 @@ public class UpdateHUD : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // TODO: Optimize by having Player call an UpdateHUD() function since HUD doesn't need to continually Update()
-        healthbar.fillAmount = mainPlayer.currentHealth / mainPlayer.maxHealth;
-        coinText.text = "X " + mainPlayer.currentCoins;
         mainPlayer.TakeDamage(10);
         mainPlayer.AddCoins(1);
+    }
+
+    public void UpdateVisuals()
+    {
+        healthbar.fillAmount = mainPlayer.currentHealth / mainPlayer.maxHealth;
+        coinText.text = "X " + mainPlayer.currentCoins;
     }
 }

@@ -1284,6 +1284,7 @@ MonoBehaviour:
   maxHealth: 1000
   currentHealth: 1000
   currentCoins: 0
+  hud: {fileID: 1734896666}
 --- !u!1 &2104234540
 GameObject:
   m_ObjectHideFlags: 0

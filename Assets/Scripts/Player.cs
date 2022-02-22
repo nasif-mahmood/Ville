@@ -7,10 +7,13 @@ public class Player : MonoBehaviour
     public float maxHealth = 1000.0f;
     public float currentHealth = 1000.0f;
     public int currentCoins;
+    public GameObject hud;
+
+    UpdateHUD hudUpdate;
     // Start is called before the first frame update
     void Start()
     {
-        
+        hudUpdate = hud.GetComponent<UpdateHUD>();
     }
 
     // Update is called once per frame
@@ -31,11 +34,13 @@ public class Player : MonoBehaviour
     public void GetHeal(float heal)
     {
         currentHealth = Mathf.Max(currentHealth + heal, maxHealth);
+        hudUpdate.UpdateVisuals();
     }
 
     public void AddCoins(int coins)
     {
         currentCoins += coins;
+        hudUpdate.UpdateVisuals();
     }
 
     void OnDeath()
@@ -45,5 +50,6 @@ public class Player : MonoBehaviour
         currentCoins = 0;
         // For testing purposes refill HP on death, delete later
         currentHealth = maxHealth;
+        hudUpdate.UpdateVisuals();
     }
 }
