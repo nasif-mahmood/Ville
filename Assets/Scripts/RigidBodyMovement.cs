@@ -6,13 +6,33 @@ public class RigidBodyMovement : MonoBehaviour
 {
     Vector3 playerDirection;
     
+    // access to the character and its collider
     public Rigidbody character;
+    BoxCollider boxCollider;
     //public Transform cam;
+
+    // next 2 variables for collision check with the floor
+    public Transform feetTransform;
+    public LayerMask FloorMask;
+
+    // holds whether the player is on the ground or not
+    private bool isGrounded;
+
+    // holds the number of times a player has jumped in a row (should only allow 2 times for double jump)
+    private bool canDoubleJump = false;
+
+    // detects whether player is crawling or not
+    private bool isCrawling = false;
 
     public float speed = 5f;
     public float jumpForce = 3f;
     public float rotationSpeed = 75.0f;
-
+    
+    // use this for initialization
+    private void Start()
+    {
+        boxCollider = GetComponent<BoxCollider>();
+    }
 
     private void FixedUpdate()
     {
@@ -40,22 +60,59 @@ public class RigidBodyMovement : MonoBehaviour
         //character.velocity = new Vector3(moveVector.x, character.velocity.y, moveVector.z);
 
         // Turning
+        // If player is moving, allow for rotation to occur
         if(playerDirection != Vector3.zero)
         {
+            // the player's direction should always follow the blue axis of the transform
             transform.forward = playerDirection;
             transform.rotation = Quaternion.LookRotation(playerDirection);
-
         }
+
     }
     // Update is called once per frame (put jump in here to make it more responsive)
     void Update()
     {
+        UpdateGroundedStatus();
+
         //jumping
-        if (Input.GetButtonDown("Jump"))
+        if (isGrounded && Input.GetButtonDown("Jump"))
         {
             character.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            canDoubleJump = true;
+        }
+        else if(canDoubleJump && Input.GetButtonDown("Jump"))
+        {
+            canDoubleJump = false;
+            character.AddForce(Vector3.up * (jumpForce + 3), ForceMode.Impulse);
         }
 
+        // Crawling
+        //Crawl();
+
+    }
+
+    // My attempt at a crawl (very buggy)
+    /*void Crawl()
+    {
+        if (Input.GetButton("Crouch"))
+        {
+            isCrawling = !isCrawling;
+            boxCollider.size = new Vector3(1f, 1.282183f, 0.8f);
+            transform.rotation = Quaternion.LookRotation(new Vector3(playerDirection.x, -90f, playerDirection.z));
+        }
+        else if (isCrawling == false)
+        {
+            boxCollider.size = new Vector3(1f, 1.282183f, 1f);
+            transform.rotation = Quaternion.LookRotation(playerDirection);
+        }
+           
+    }*/
+
+    void UpdateGroundedStatus()
+    {
+        // check if the player is on the ground
+        isGrounded = Physics.CheckSphere(feetTransform.position, 0.1f, FloorMask);
+           
     }
 }
 
