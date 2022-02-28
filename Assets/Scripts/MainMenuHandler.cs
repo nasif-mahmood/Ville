@@ -5,6 +5,7 @@ using UnityEngine;
 public class MainMenuHandler : MonoBehaviour
 {
     public GameObject startButton;
+    public GameObject quitButton;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,5 +21,11 @@ public class MainMenuHandler : MonoBehaviour
     public void StartGame()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("UITestScene_Temp");
+    }
+
+    public void EndGame()
+    {
+        Debug.Log("Quitting game! Ignored in Editor");
+        Application.Quit();
     }
 }
