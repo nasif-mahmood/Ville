@@ -6,10 +6,14 @@ public class RigidBodyMovement : MonoBehaviour
 {
     Vector3 playerDirection;
     
-    // access to the character and its collider
+    // access to the character
     public Rigidbody character;
-    BoxCollider boxCollider;
-    //public Transform cam;
+
+    // for crawl if I make it
+    //BoxCollider boxCollider;
+
+    // To get access to the main camera
+    public Transform cam;
 
     // next 2 variables for collision check with the floor
     public Transform feetTransform;
@@ -31,7 +35,7 @@ public class RigidBodyMovement : MonoBehaviour
     // use this for initialization
     private void Start()
     {
-        boxCollider = GetComponent<BoxCollider>();
+        //boxCollider = GetComponent<BoxCollider>();
     }
 
     private void FixedUpdate()
@@ -40,13 +44,9 @@ public class RigidBodyMovement : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal") * speed;
         float vertical = Input.GetAxis("Vertical") * speed;
 
-        // so it works independent of framerate
-        horizontal = horizontal * Time.deltaTime;
-        vertical = vertical * Time.deltaTime;
-
         // allows for movement in x,y, and z directions
         // normalized so that we don't go faster when we go diagonal (hitting 2 keys)
-        playerDirection = new Vector3(horizontal, 0f, vertical);
+        //playerDirection = new Vector3(horizontal, 0f, vertical).normalized;
 
         MovePlayer(horizontal, vertical);
     }
@@ -54,17 +54,33 @@ public class RigidBodyMovement : MonoBehaviour
     private void MovePlayer(float horizontal, float vertical)
     {
         // Moving
-        transform.Translate(transform.TransformDirection(-horizontal, 0f, vertical));
 
-        // move around using the moveVector coordinates, let gravity be controlled by the rigidbody attributes
-        //character.velocity = new Vector3(moveVector.x, character.velocity.y, moveVector.z);
+        // get the vectors of the forward and right directions of the main camera
+        Vector3 camF = cam.forward;
+        Vector3 camR = cam.right;
+
+        // zero out the y directions of these vectors since our main camera will be at some y angle
+        // and we don't want that y angle to affect the character movements
+        camF.y = 0;
+        camR.y = 0;
+        camF = camF.normalized;
+        camR = camR.normalized;
+
+        // determine direction of the player relative to the camera
+        // note that if we want direction non-relative to camera, do the following:
+        // playerDirection = new Vector3(horizontal, 0f, vertical).normalized;
+
+        // its normalized so that pushing 2 keys won't result in faster movement
+        playerDirection = ((camF * vertical + camR * horizontal) * Time.deltaTime).normalized;
+
+        // move the player relative to camera
+        transform.position += (camF * vertical + camR * horizontal)*Time.deltaTime;
+
 
         // Turning
         // If player is moving, allow for rotation to occur
         if(playerDirection != Vector3.zero)
         {
-            // the player's direction should always follow the blue axis of the transform
-            transform.forward = playerDirection;
             transform.rotation = Quaternion.LookRotation(playerDirection);
         }
 
