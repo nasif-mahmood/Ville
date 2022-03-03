@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
         {
             OnDeath();
         }
+        hudUpdate.UpdateVisuals();
     }
 
     public void GetHeal(float heal)
