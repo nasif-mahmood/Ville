@@ -53,4 +53,20 @@ public class Player : MonoBehaviour
         currentHealth = maxHealth;
         hudUpdate.UpdateVisuals();
     }
+
+    void OnTriggerEnter(Collider target)
+    {
+        if(target.gameObject.tag.Equals("Enemy"))
+        {
+            TakeDamage(10.0f);
+        }
+    }
+
+    void OnTriggerStay(Collider target)
+    {
+        if(target.gameObject.tag.Equals("Enemy"))
+        {
+            TakeDamage(10.0f);
+        }
+    }
 }

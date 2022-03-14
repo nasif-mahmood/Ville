@@ -19,8 +19,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // REMOVE - this is just for debugging
-        TakeDamage(0.01f);
+        // TODO: Implement enemy AI behavior
     }
 
     public void TakeDamage(float damage)
@@ -34,9 +33,35 @@ public class Enemy : MonoBehaviour
         healthbar.fillAmount = currentHealth / maxHealth;
     }
 
+    /*
+    Called when enemy dies
+    */
     void OnDeath()
     {
         Debug.Log("Enemy died!");
-        currentHealth = maxHealth;
+        Destroy(this.gameObject);
+    }
+
+    /*
+    Called when enemy is initially touched
+    */
+    void OnTriggerEnter(Collider target)
+    {
+        if(target.gameObject.tag.Equals("Player"))
+        {
+            TakeDamage(2.0f);
+        }
+        Debug.Log(target.gameObject.tag);
+    }
+
+    /*
+    Called when enemy is being touched
+    */
+    void OnTriggerStay(Collider target)
+    {
+        if(target.gameObject.tag.Equals("Player"))
+        {
+            TakeDamage(2.0f);
+        }
     }
 }
