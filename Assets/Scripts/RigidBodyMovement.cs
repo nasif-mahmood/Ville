@@ -9,8 +9,8 @@ public class RigidBodyMovement : MonoBehaviour
     // access to the character
     public Rigidbody character;
 
-    // for crawl if I make it
-    //BoxCollider boxCollider;
+    // for dog animator
+    private Animator d_anim;
 
     // To get access to the main camera
     public Transform cam;
@@ -35,7 +35,7 @@ public class RigidBodyMovement : MonoBehaviour
     // use this for initialization
     private void Start()
     {
-        //boxCollider = GetComponent<BoxCollider>();
+        d_anim = GetComponentInChildren<Animator>();
     }
 
     private void FixedUpdate()
@@ -78,10 +78,17 @@ public class RigidBodyMovement : MonoBehaviour
 
 
         // Turning
-        // If player is moving, allow for rotation to occur
+        // If player is moving, allow for rotation to occur and set the move animation
         if(playerDirection != Vector3.zero)
         {
+            d_anim.SetBool("isMoving", true);
             transform.rotation = Quaternion.LookRotation(playerDirection);
+        }
+
+        // else, keep it at the idle animation
+        else
+        {
+            d_anim.SetBool("isMoving", false);
         }
 
     }
