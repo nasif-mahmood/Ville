@@ -26,7 +26,7 @@ public class RigidBodyMovement : MonoBehaviour
     private bool canDoubleJump = false;
 
     // detects whether player is crawling or not
-    private bool isCrawling = false;
+    //private bool isCrawling = false;
 
     public float speed = 5f;
     public float jumpForce = 3f;
