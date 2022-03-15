@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2142,7 +2142,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1487217592}
-  m_LocalRotation: {x: 0.20120691, y: 0.5006655, z: -0.120903276, w: 0.83320606}
+  m_LocalRotation: {x: 0.20113099, y: 0.50118816, z: -0.12102951, w: 0.83289176}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2330,6 +2330,18 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 1634000081}
+    - target: {fileID: 1797415597414560840, guid: c2f80472436a1bb459f45f40c1dc9f0e, type: 3}
+      propertyPath: jumpForce
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561692202183016549, guid: c2f80472436a1bb459f45f40c1dc9f0e, type: 3}
+      propertyPath: m_Size.y
+      value: 1.312352
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561692202183016549, guid: c2f80472436a1bb459f45f40c1dc9f0e, type: 3}
+      propertyPath: m_Center.y
+      value: 0.6690651
+      objectReference: {fileID: 0}
     - target: {fileID: 8887731477403403030, guid: c2f80472436a1bb459f45f40c1dc9f0e, type: 3}
       propertyPath: m_Name
       value: DogPolyart No Sword or Shield
@@ -2510,7 +2522,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1634000076}
-  m_LocalRotation: {x: 0.2012069, y: 0.5006655, z: -0.1209033, w: 0.83320606}
+  m_LocalRotation: {x: 0.20113103, y: 0.5011882, z: -0.12102951, w: 0.8328917}
   m_LocalPosition: {x: 46.954746, y: 5.888217, z: 14.488657}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
