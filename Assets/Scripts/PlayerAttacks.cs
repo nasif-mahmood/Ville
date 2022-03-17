@@ -22,6 +22,12 @@ namespace DigitalRuby.PyroParticles
         float fireballDelay = 1.0f;
         float buttonPressTime;
 
+        // variables to determine when the character attack animations are playing and for how long
+        // should it be playing until you can attack again
+        bool currentlyAttacking = false;
+        // when the animation is 90% done
+        float animTime = 0.9f;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -38,9 +44,29 @@ namespace DigitalRuby.PyroParticles
             {
                 buttonPressTime = Time.time;
                 Debug.Log("F button pushed");
-                startFireball();
-                
+
+                // If you are currently not attacking, set the animation trigger, give it time to
+                // set, then start the fireball
+                if(!currentlyAttacking)
+                {
+                    d_anim.SetTrigger("useFireball");
+                    StartCoroutine(initializeAttack());
+                    startFireball();
+                }
             }
+
+            // if you are attacking and the animation is about done (reached animTime) let the player attack again
+            if(currentlyAttacking && d_anim.GetCurrentAnimatorStateInfo(1).normalizedTime >= animTime)
+            {
+                currentlyAttacking = false;
+            }
+        }
+
+        IEnumerator initializeAttack()
+        {
+            // give the trigger a moment to set
+            yield return new WaitForSeconds(0.1f);
+            currentlyAttacking = true;
         }
 
         void startFireball()
