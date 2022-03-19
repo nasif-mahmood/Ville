@@ -13,6 +13,10 @@ public class UpdateHUD : MonoBehaviour
     public GameObject coinCounter;
     [Tooltip("Pause Menu GameObject")]
     public GameObject pauseMenu;
+    [Tooltip("Flag that a popup is active")]
+    public bool isPopupActive = false;
+    [Tooltip("Flag that pause menu is active")]
+    public bool isPauseActive = false;
 
     Image healthbar;    // Stores reference to HUD healthbar
     Player mainPlayer;  // Stores reference to player's Player script for HP/coins
@@ -55,7 +59,11 @@ public class UpdateHUD : MonoBehaviour
     public void FlipPauseMenu()
     {
         pauseMenu.active = !pauseMenu.active;
-        Time.timeScale = pauseMenu.active ? 0 : 1;
+        isPauseActive = pauseMenu.active;
+        if (!isPopupActive)
+        {
+            Time.timeScale = pauseMenu.active ? 0 : 1;
+        }
     }
 
     /*

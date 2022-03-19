@@ -51,7 +51,6 @@ public class Enemy : MonoBehaviour
         {
             TakeDamage(2.0f);
         }
-        Debug.Log(target.gameObject.tag);
     }
 
     /*

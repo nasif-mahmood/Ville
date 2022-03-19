@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Fire
+  - Popup
   layers:
   - Default
   - TransparentFX

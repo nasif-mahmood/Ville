@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public GameObject hud;
 
     UpdateHUD hudUpdate;
+    GameObject currentPopup;
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +61,11 @@ public class Player : MonoBehaviour
         {
             TakeDamage(10.0f);
         }
+        else if (target.gameObject.tag.Equals("Popup")) 
+        {
+            currentPopup = target.gameObject;
+            currentPopup.transform.GetChild(1).gameObject.active = true;
+        }
     }
 
     void OnTriggerStay(Collider target)
@@ -67,6 +73,15 @@ public class Player : MonoBehaviour
         if(target.gameObject.tag.Equals("Enemy"))
         {
             TakeDamage(10.0f);
+        }
+    }
+
+    void OnTriggerExit(Collider target)
+    {
+        if(target.gameObject.tag.Equals("Popup"))
+        {
+            currentPopup.transform.GetChild(1).gameObject.active = false;
+            currentPopup = null;
         }
     }
 }
