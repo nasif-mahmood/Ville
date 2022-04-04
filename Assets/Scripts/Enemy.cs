@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
@@ -10,16 +11,224 @@ public class Enemy : MonoBehaviour
     public float currentHealth = 100;
 
     Image healthbar;
+
+    // Enemy AI variables
+    public LayerMask playerLayer;
+    public LayerMask floorLayer;
+
+    public NavMeshAgent agent;
+    private GameObject player;
+    private GameObject enemy;
+    private Animator enemy_anim;
+
+    // When the player gets out of range, the enemy should return to its original location (if it can't within a
+    // certain timeframe, transport the enemy back to its original location)
+    private Vector3 originalLocation;
+
+    // determines whether the timer has started on enemy's movement
+    bool moveTimerSet = false;
+
+    // time where enemy starts to move towards its original location
+    private float moveStartTime;
+
+    // if its in its initial location, let it move around a little in a small area and idle each time it reaches
+    // a destination
+    private Vector3 destinationPoint;
+    private bool reachedDestination = false;
+    public float walkRange;
+
+    // decrements each time it makes a move, resets once it reaches 0
+    // ONLY WORKS IF YOU SET IT TO 1, acts like a semaphore
+    private int numMovesLeft = 1;
+
+    // determines whether the enemy has just finished attacking
+    private bool isAttacking = false;
+
+
+    // States
+    public float sightRange;
+    // range for when the enemy starts attacking
+    public float attackRange;
+    private bool playerInSightRange;
+    private bool playerInAttackRange;
+
+    // TODO: GET ATTACK ANIMATION ON, FIGURE OUT IF I WANT TO DO
+    // WARP THING, SET OTHER ANIMATIONS
+
     // Start is called before the first frame update
     void Start()
     {
         healthbar = hudHealthbar.GetComponent<Image>();
+
+        // Enemy AI stuff
+        agent = GetComponent<NavMeshAgent>();
+        player = GameObject.FindGameObjectWithTag("Player");
+
+        enemy_anim = GetComponentInChildren<Animator>();
+
+        // question is if this is problematic if there is more than 1 enemy?
+        enemy = GameObject.FindGameObjectWithTag("Enemy");
+        originalLocation = enemy.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
         // TODO: Implement enemy AI behavior
+        // Check whether the enemy is within a certain range of the player
+        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, playerLayer);
+        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerLayer);
+
+        // state machine: enemy can either go back to its location, run to player, or attack player
+        if (!playerInSightRange && !playerInAttackRange)
+        {
+          //moveBack();
+
+            moveAround();
+        }
+        if (playerInSightRange && !playerInAttackRange)
+        {
+            moveToPlayer();
+        }
+        if (playerInSightRange && playerInAttackRange)
+        {
+            attackPlayer();
+        }
+    }
+
+
+    // NOTE: THE TIME PART NEEDS TO BE TESTED
+    //private void moveBack()
+    //{
+    //    // attempt to move the enemy back to its initial location
+    //    agent.SetDestination(originalLocation);
+    //    moveStartTime = Time.time;
+
+    //    // if its been 20 seconds and the enemy isn't in its original location yet, transport it
+    //    // back to its initial location
+    //    if (enemy.transform.position != originalLocation && Time.time - moveStartTime >= 20.0f)
+    //    {
+            //agent.Warp(originalLocation);
+    //        enemy.transform.position = originalLocation;
+    //    }
+
+    //}
+
+    private void moveAround()
+    {
+        // if enemy was moving before, set the animation back to not moving now
+        enemy_anim.SetBool("isMoving", false);
+        // determines the distance from the enemy to its destination
+        Vector3 distanceFromDestination;
+
+        // only allows one thread in at a time
+        if (numMovesLeft > 0)
+        {
+            if (!reachedDestination)
+             {
+
+                Debug.Log("pick a new destination");
+
+                // pick random x and z coordinates that are within the original location's range
+                float newX = originalLocation.x + Random.Range(-walkRange, walkRange);
+                float newZ = originalLocation.z + Random.Range(-walkRange, walkRange);
+
+                // set this new point as a point to move to
+                destinationPoint = new Vector3(newX, transform.position.y, newZ);
+
+                // debating whether to remove this if statement
+                // would be to check if the destination is within the map
+                if (Physics.Raycast(destinationPoint, -transform.up, 2f, floorLayer))
+                    reachedDestination = true;
+            }
+            else
+            {
+                // move to the point that was generated
+                enemy_anim.SetBool("isMoving", true);
+                agent.SetDestination(destinationPoint);
+
+                //if(!moveTimerSet)
+                //{
+                //    Debug.Log("Entered move timer");
+                //    moveTimerSet = true;
+                //    moveStartTime = Time.time;
+                //}
+
+                //// if its been 20 seconds and the enemy isn't in its original location yet, transport it
+                ////    // back to its initial location
+                //if (enemy.transform.position != originalLocation && Time.time - moveStartTime >= 5.0f)
+                //{
+                //    Debug.Log("entered transport if statement");
+                //    agent.Warp(originalLocation);
+                //    //enemy.transform.position = originalLocation;
+                //}
+            }
+
+            distanceFromDestination = enemy.transform.position - destinationPoint;
+
+            // if you are very close to your destination point, then you reached it
+            if (distanceFromDestination.magnitude < 0.1f)
+            {
+                reachedDestination = false;
+
+                // numMovesLeft is basically a semaphore, only allows 1 thread to enter
+                // at a time
+                numMovesLeft--;
+
+                // Reset the movement timer
+                //moveTimerSet = false;
+
+                // idle for a bit before choosing a new destination
+                StartCoroutine(idle());
+            }
+        }
+    }
+
+    private IEnumerator idle()
+    {
+        enemy_anim.SetBool("isMoving", false);
+        Debug.Log("idling");
+        yield return new WaitForSeconds(2);
+
+        // incrementing, allowing another move
+        numMovesLeft++;
+    }
+
+    private void moveToPlayer()
+    {
+        enemy_anim.SetBool("isMoving", true);
+        agent.SetDestination(player.transform.position);
+    }
+
+    private void attackPlayer()
+    {
+        // have the enemy stop once it reaches attack distance to the player
+        agent.SetDestination(transform.position);
+
+        transform.LookAt(player.transform);
+
+        if(!isAttacking)
+        {
+            // set animator to an attack trigger here
+            enemy_anim.SetTrigger("isAttacking");
+            StartCoroutine(initializeAttack());
+            StartCoroutine(resetAttack());
+        }
+
+    }
+
+    IEnumerator initializeAttack()
+    {
+        // give the trigger a moment to set
+        yield return new WaitForSeconds(0.1f);
+        isAttacking = true;
+    }
+
+    IEnumerator resetAttack()
+    {
+        // wait for the attack time to finish through
+        yield return new WaitForSeconds(1.5f);
+        isAttacking = false;
     }
 
     public void TakeDamage(float damage)

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -106,15 +106,15 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.5
+    agentRadius: 0.3
     agentHeight: 2
     agentSlope: 45
     agentClimb: 0.4
-    ledgeDropHeight: 0
+    ledgeDropHeight: 60
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.16666667
+    cellSize: 0.1
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 48c18c2aa0442d940bf486decdc8fc55, type: 2}
 --- !u!1001 &2694824
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -276,7 +276,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!65 &307361688
 BoxCollider:
@@ -366,7 +366,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 368377264}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c3593101fa273f4a82d3d4f3866d96c, type: 3}
   m_Name: 
@@ -374,6 +374,38 @@ MonoBehaviour:
   hudHealthbar: {fileID: 224410420}
   maxHealth: 100
   currentHealth: 100
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  floorLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  agent: {fileID: 368377268}
+  walkRange: 3
+  sightRange: 10
+  attackRange: 3
+--- !u!195 &368377268
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 368377264}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &418075072
 GameObject:
   m_ObjectHideFlags: 3
@@ -517,7 +549,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!65 &480556573
 BoxCollider:
@@ -1297,7 +1329,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!65 &780496881
 BoxCollider:
@@ -1392,7 +1424,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!65 &823814272
 BoxCollider:
@@ -1763,7 +1795,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1060259419}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c3593101fa273f4a82d3d4f3866d96c, type: 3}
   m_Name: 
@@ -1771,6 +1803,16 @@ MonoBehaviour:
   hudHealthbar: {fileID: 773603210}
   maxHealth: 100
   currentHealth: 100
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  floorLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  agent: {fileID: 0}
+  walkRange: 5
+  sightRange: 10
+  attackRange: 5
 --- !u!1 &1090468583
 GameObject:
   m_ObjectHideFlags: 0
@@ -1788,7 +1830,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!65 &1090468584
 BoxCollider:
@@ -1883,7 +1925,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!65 &1155576930
 BoxCollider:
@@ -2076,7 +2118,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!65 &1319551753
 BoxCollider:
@@ -2220,7 +2262,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1487217592}
-  m_LocalRotation: {x: 0.2012069, y: 0.5006655, z: -0.1209033, w: 0.833206}
+  m_LocalRotation: {x: 0.20116033, y: 0.5009864, z: -0.12098079, w: 0.8330131}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2294,7 +2336,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1569532163}
-  m_LocalRotation: {x: 0.30083284, y: 0.48502156, z: -0.18223965, w: 0.80065125}
+  m_LocalRotation: {x: 0.3008328, y: 0.4850215, z: -0.18223962, w: 0.8006513}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2319,7 +2361,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!65 &1593416323
 BoxCollider:
@@ -2414,15 +2456,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6561692202183016549, guid: c2f80472436a1bb459f45f40c1dc9f0e, type: 3}
       propertyPath: m_Size.y
-      value: 1.312352
+      value: 1.3438585
       objectReference: {fileID: 0}
     - target: {fileID: 6561692202183016549, guid: c2f80472436a1bb459f45f40c1dc9f0e, type: 3}
       propertyPath: m_Center.y
-      value: 0.6690651
+      value: 0.65331185
       objectReference: {fileID: 0}
     - target: {fileID: 8887731477403403030, guid: c2f80472436a1bb459f45f40c1dc9f0e, type: 3}
       propertyPath: m_Name
       value: DogPolyart No Sword or Shield
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887731477403403030, guid: c2f80472436a1bb459f45f40c1dc9f0e, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8887731477403403030, guid: c2f80472436a1bb459f45f40c1dc9f0e, type: 3}
       propertyPath: m_TagString
@@ -2600,7 +2646,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1634000076}
-  m_LocalRotation: {x: 0.2012069, y: 0.50066555, z: -0.12090332, w: 0.833206}
+  m_LocalRotation: {x: 0.20116033, y: 0.5009864, z: -0.12098076, w: 0.8330131}
   m_LocalPosition: {x: 46.954746, y: 5.888217, z: 14.488657}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2770,7 +2816,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!65 &2120888910
 BoxCollider:
