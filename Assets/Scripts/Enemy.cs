@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    public GameObject hudHealthbar;
-    public float maxHealth = 100;
-    public float currentHealth = 100;
+    //public GameObject hudHealthbar;
+    //public float maxHealth = 100;
+    //public float currentHealth = 100;
 
-    Image healthbar;
+    //Image healthbar;
+
+
 
     // Enemy AI variables
     public LayerMask playerLayer;
@@ -18,18 +19,12 @@ public class Enemy : MonoBehaviour
 
     public NavMeshAgent agent;
     private GameObject player;
-    private GameObject enemy;
+    public GameObject enemy;
     private Animator enemy_anim;
 
     // When the player gets out of range, the enemy should return to its original location (if it can't within a
     // certain timeframe, transport the enemy back to its original location)
     private Vector3 originalLocation;
-
-    // determines whether the timer has started on enemy's movement
-    bool moveTimerSet = false;
-
-    // time where enemy starts to move towards its original location
-    private float moveStartTime;
 
     // if its in its initial location, let it move around a little in a small area and idle each time it reaches
     // a destination
@@ -52,22 +47,17 @@ public class Enemy : MonoBehaviour
     private bool playerInSightRange;
     private bool playerInAttackRange;
 
-    // TODO: GET ATTACK ANIMATION ON, FIGURE OUT IF I WANT TO DO
-    // WARP THING, SET OTHER ANIMATIONS
-
     // Start is called before the first frame update
     void Start()
     {
-        healthbar = hudHealthbar.GetComponent<Image>();
+        // healthbar = hudHealthbar.GetComponent<Image>();
 
         // Enemy AI stuff
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
 
-        enemy_anim = GetComponentInChildren<Animator>();
+        enemy_anim = GetComponent<Animator>();
 
-        // question is if this is problematic if there is more than 1 enemy?
-        enemy = GameObject.FindGameObjectWithTag("Enemy");
         originalLocation = enemy.transform.position;
     }
 
@@ -80,39 +70,32 @@ public class Enemy : MonoBehaviour
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerLayer);
 
         // state machine: enemy can either go back to its location, run to player, or attack player
-        if (!playerInSightRange && !playerInAttackRange)
+        // only keep going if the enemy is still alive
+        if(enemy_anim.GetBool("hasDied") == false)
         {
-          //moveBack();
-
-            moveAround();
+            if (!playerInSightRange && !playerInAttackRange)
+            {
+                moveAround();
+            }
+            if (playerInSightRange && !playerInAttackRange)
+            {
+                moveToPlayer();
+            }
+            if (playerInSightRange && playerInAttackRange)
+            {
+                attackPlayer();
+            }
         }
-        if (playerInSightRange && !playerInAttackRange)
-        {
-            moveToPlayer();
-        }
-        if (playerInSightRange && playerInAttackRange)
-        {
-            attackPlayer();
-        }
+        
     }
 
-
-    // NOTE: THE TIME PART NEEDS TO BE TESTED
-    //private void moveBack()
-    //{
-    //    // attempt to move the enemy back to its initial location
-    //    agent.SetDestination(originalLocation);
-    //    moveStartTime = Time.time;
-
-    //    // if its been 20 seconds and the enemy isn't in its original location yet, transport it
-    //    // back to its initial location
-    //    if (enemy.transform.position != originalLocation && Time.time - moveStartTime >= 20.0f)
-    //    {
-            //agent.Warp(originalLocation);
-    //        enemy.transform.position = originalLocation;
-    //    }
-
-    //}
+    // to play the animator of the enemy once it dies
+    public void hasDiedAnim()
+    {
+        enemy_anim = GetComponentInParent<Animator>();
+        enemy_anim.SetBool("hasDied", true);
+        Destroy(gameObject, 3f);
+    }
 
     private void moveAround()
     {
@@ -127,7 +110,7 @@ public class Enemy : MonoBehaviour
             if (!reachedDestination)
              {
 
-                Debug.Log("pick a new destination");
+                //Debug.Log("pick a new destination");
 
                 // pick random x and z coordinates that are within the original location's range
                 float newX = originalLocation.x + Random.Range(-walkRange, walkRange);
@@ -146,22 +129,6 @@ public class Enemy : MonoBehaviour
                 // move to the point that was generated
                 enemy_anim.SetBool("isMoving", true);
                 agent.SetDestination(destinationPoint);
-
-                //if(!moveTimerSet)
-                //{
-                //    Debug.Log("Entered move timer");
-                //    moveTimerSet = true;
-                //    moveStartTime = Time.time;
-                //}
-
-                //// if its been 20 seconds and the enemy isn't in its original location yet, transport it
-                ////    // back to its initial location
-                //if (enemy.transform.position != originalLocation && Time.time - moveStartTime >= 5.0f)
-                //{
-                //    Debug.Log("entered transport if statement");
-                //    agent.Warp(originalLocation);
-                //    //enemy.transform.position = originalLocation;
-                //}
             }
 
             distanceFromDestination = enemy.transform.position - destinationPoint;
@@ -187,7 +154,7 @@ public class Enemy : MonoBehaviour
     private IEnumerator idle()
     {
         enemy_anim.SetBool("isMoving", false);
-        Debug.Log("idling");
+        //Debug.Log("idling");
         yield return new WaitForSeconds(2);
 
         // incrementing, allowing another move
@@ -227,49 +194,49 @@ public class Enemy : MonoBehaviour
     IEnumerator resetAttack()
     {
         // wait for the attack time to finish through
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.0f);
         isAttacking = false;
     }
 
-    public void TakeDamage(float damage)
-    {
-        currentHealth -= damage;
-        if (currentHealth <= 0)
-        {
-            currentHealth = 0.0f;
-            OnDeath();
-        }
-        healthbar.fillAmount = currentHealth / maxHealth;
-    }
+    //public void TakeDamage(float damage)
+    //{
+    //    currentHealth -= damage;
+    //    if (currentHealth <= 0)
+    //    {
+    //        currentHealth = 0.0f;
+    //        OnDeath();
+    //    }
+    //    healthbar.fillAmount = currentHealth / maxHealth;
+    //}
 
-    /*
-    Called when enemy dies
-    */
-    void OnDeath()
-    {
-        Debug.Log("Enemy died!");
-        Destroy(this.gameObject);
-    }
+    ///*
+    //Called when enemy dies
+    
+    //void OnDeath()
+    //{
+    //    Debug.Log("Enemy died!");
+    //    Destroy(this.gameObject);
+    //}
 
-    /*
-    Called when enemy is initially touched
-    */
-    void OnTriggerEnter(Collider target)
-    {
-        if(target.gameObject.tag.Equals("Player"))
-        {
-            TakeDamage(2.0f);
-        }
-    }
+    ///*
+    //Called when enemy is initially touched
+    //*/
+    //void OnTriggerEnter(Collider target)
+    //{
+    //    if(target.gameObject.tag.Equals("Player"))
+    //    {
+    //        TakeDamage(2.0f);
+    //    }
+    //}
 
-    /*
-    Called when enemy is being touched
-    */
-    void OnTriggerStay(Collider target)
-    {
-        if(target.gameObject.tag.Equals("Player"))
-        {
-            TakeDamage(2.0f);
-        }
-    }
+    ///*
+    //Called when enemy is being touched
+    //*/
+    //void OnTriggerStay(Collider target)
+    //{
+    //    if(target.gameObject.tag.Equals("Player"))
+    //    {
+    //        TakeDamage(2.0f);
+    //    }
+    //}
 }
