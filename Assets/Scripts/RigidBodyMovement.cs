@@ -29,7 +29,7 @@ public class RigidBodyMovement : MonoBehaviour
     //private bool isCrawling = false;
 
     public float speed = 5f;
-    public float jumpForce = 3f;
+    public float jumpForce = 7f;
     public float rotationSpeed = 75.0f;
     
     // use this for initialization
@@ -120,28 +120,7 @@ public class RigidBodyMovement : MonoBehaviour
             }
                
         }
-
-        // Crawling
-        //Crawl();
-
     }
-
-    // My attempt at a crawl (very buggy)
-    /*void Crawl()
-    {
-        if (Input.GetButton("Crouch"))
-        {
-            isCrawling = !isCrawling;
-            boxCollider.size = new Vector3(1f, 1.282183f, 0.8f);
-            transform.rotation = Quaternion.LookRotation(new Vector3(playerDirection.x, -90f, playerDirection.z));
-        }
-        else if (isCrawling == false)
-        {
-            boxCollider.size = new Vector3(1f, 1.282183f, 1f);
-            transform.rotation = Quaternion.LookRotation(playerDirection);
-        }
-           
-    }*/
 
     void UpdateGroundedStatus()
     {

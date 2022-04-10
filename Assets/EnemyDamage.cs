@@ -9,6 +9,8 @@ public class EnemyDamage : MonoBehaviour
     public float maxHealth = 100;
     public float currentHealth = 100;
 
+    private bool hasDied = false;
+
     Image healthbar;
 
     // Start is called before the first frame update
@@ -41,6 +43,7 @@ public class EnemyDamage : MonoBehaviour
     {
         Enemy enemyScript = GameObject.FindObjectOfType(typeof(Enemy)) as Enemy;
         Debug.Log("Enemy died!");
+        hasDied = true;
 
         // call the function to set the death animation in the Enemy Script
         enemyScript.hasDiedAnim();
@@ -52,16 +55,16 @@ public class EnemyDamage : MonoBehaviour
     */
     void OnTriggerEnter(Collider target)
     {
-        if (target.gameObject.tag.Equals("Player"))
-        {
-            TakeDamage(2.0f);
-        }
-
-        //if (target.gameObject.tag.Equals("Fire"))
+        //if (target.gameObject.tag.Equals("Player") && !hasDied)
         //{
-        //    Debug.Log("Fireball hurt enemy");
-        //    TakeDamage(10.0f);
+        //    TakeDamage(2.0f);
         //}
+
+        if (target.gameObject.tag.Equals("Fire") && !hasDied)
+        {
+            Debug.Log("Fireball hurt enemy");
+            TakeDamage(20.0f);
+        }
     }
 
     /*
@@ -69,9 +72,16 @@ public class EnemyDamage : MonoBehaviour
     */
     void OnTriggerStay(Collider target)
     {
-        if (target.gameObject.tag.Equals("Player"))
-        {
-            TakeDamage(2.0f);
-        }
+        //if (target.gameObject.tag.Equals("Player") && !hasDied)
+        //{
+        //    TakeDamage(2.0f);
+        //}
+    }
+
+    // to get the bool on if the enemy has died. Connected to the Player script
+    // so the player knows whether the enemy is dead or not
+    public bool enemyDeath()
+    {
+        return hasDied;
     }
 }

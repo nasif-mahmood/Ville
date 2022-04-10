@@ -70,15 +70,7 @@ namespace DigitalRuby.PyroParticles
         {
             if (collided)
             {
-                Debug.Log("Collision occurred");
-                //EnemyDamage damageScript = GameObject.FindObjectOfType(typeof(EnemyDamage)) as EnemyDamage;
                 // already collided, don't do anything
-                // Laura's code: deal damage to enemy on collision
-                //if (obj.tag.Equals("Enemy"))
-                //{
-                //    Debug.Log("Fireball hurt enemy");
-                //    damageScript.TakeDamage(10.0f);
-                //}
                 return;
             }
 

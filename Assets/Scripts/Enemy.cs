@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
     public GameObject enemy;
     private Animator enemy_anim;
 
+
     // When the player gets out of range, the enemy should return to its original location (if it can't within a
     // certain timeframe, transport the enemy back to its original location)
     private Vector3 originalLocation;
@@ -79,7 +80,11 @@ public class Enemy : MonoBehaviour
             }
             if (playerInSightRange && !playerInAttackRange)
             {
-                moveToPlayer();
+                //Debug.Log("priorFramePosition: ");
+                //Debug.Log(priorFramePosition);
+                //Debug.Log(enemy.transform.position);
+                //if(Vector3.Distance(enemy.transform.position, priorFramePosition) > 0.01f)
+                    moveToPlayer();
             }
             if (playerInSightRange && playerInAttackRange)
             {
@@ -94,7 +99,8 @@ public class Enemy : MonoBehaviour
     {
         enemy_anim = GetComponentInParent<Animator>();
         enemy_anim.SetBool("hasDied", true);
-        Destroy(gameObject, 3f);
+
+        Destroy(gameObject, 2.5f);
     }
 
     private void moveAround()
@@ -103,6 +109,8 @@ public class Enemy : MonoBehaviour
         enemy_anim.SetBool("isMoving", false);
         // determines the distance from the enemy to its destination
         Vector3 distanceFromDestination;
+
+        NavMeshHit navHit;
 
         // only allows one thread in at a time
         if (numMovesLeft > 0)
@@ -119,10 +127,17 @@ public class Enemy : MonoBehaviour
                 // set this new point as a point to move to
                 destinationPoint = new Vector3(newX, transform.position.y, newZ);
 
+                // set this position relative to the NavMeshMap so the enemy won't try to move
+                // somewhere outside of the NavMesh
+                NavMesh.SamplePosition(destinationPoint, out navHit, walkRange, -1);
+
                 // debating whether to remove this if statement
                 // would be to check if the destination is within the map
                 if (Physics.Raycast(destinationPoint, -transform.up, 2f, floorLayer))
                     reachedDestination = true;
+
+                // set the destination considering the navMesh to the destinationPoint
+                destinationPoint = navHit.position;
             }
             else
             {
@@ -142,9 +157,6 @@ public class Enemy : MonoBehaviour
                 // at a time
                 numMovesLeft--;
 
-                // Reset the movement timer
-                //moveTimerSet = false;
-
                 // idle for a bit before choosing a new destination
                 StartCoroutine(idle());
             }
@@ -154,7 +166,6 @@ public class Enemy : MonoBehaviour
     private IEnumerator idle()
     {
         enemy_anim.SetBool("isMoving", false);
-        //Debug.Log("idling");
         yield return new WaitForSeconds(2);
 
         // incrementing, allowing another move
@@ -194,7 +205,7 @@ public class Enemy : MonoBehaviour
     IEnumerator resetAttack()
     {
         // wait for the attack time to finish through
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(4.0f);
         isAttacking = false;
     }
 
