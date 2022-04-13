@@ -451,7 +451,6 @@ GameObject:
   - component: {fileID: 8402294929784815008}
   - component: {fileID: 8402294929784815010}
   - component: {fileID: 8402294929784815009}
-  - component: {fileID: 8402294929784815007}
   - component: {fileID: 8402294929784815006}
   m_Layer: 0
   m_Name: Body
@@ -517,29 +516,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.9, y: 0.82, z: 0.88}
   m_Center: {x: -0.3, y: 0.05, z: 0.01}
---- !u!114 &8402294929784815007
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8403648283322168600}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c3593101fa273f4a82d3d4f3866d96c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  floorLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  agent: {fileID: 0}
-  enemy: {fileID: 0}
-  walkRange: 3
-  sightRange: 8
-  attackRange: 2
 --- !u!114 &8402294929784815006
 MonoBehaviour:
   m_ObjectHideFlags: 0
