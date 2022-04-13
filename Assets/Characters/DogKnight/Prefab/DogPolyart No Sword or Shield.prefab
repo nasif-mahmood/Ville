@@ -1255,9 +1255,12 @@ GameObject:
   - component: {fileID: 4830079204410018956}
   - component: {fileID: 6561692202183016549}
   - component: {fileID: 1797415597414560840}
-  m_Layer: 0
+  - component: {fileID: 875572528}
+  - component: {fileID: 875572532}
+  - component: {fileID: -1851999416123661125}
+  m_Layer: 8
   m_Name: DogPolyart No Sword or Shield
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1323,10 +1326,10 @@ BoxCollider:
   m_GameObject: {fileID: 8887731477403403030}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.2821827, z: 1}
-  m_Center: {x: 0, y: 0.68414974, z: 0}
+  m_Size: {x: 1, y: 1.3590505, z: 1}
+  m_Center: {x: 0, y: 0.64571583, z: 0}
 --- !u!114 &1797415597414560840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1346,8 +1349,52 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   speed: 5
-  jumpForce: 8
+  jumpForce: 7
   rotationSpeed: 75
+--- !u!114 &875572528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8887731477403403030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c31de1d73bca4ab41bcd350aaf4f6da2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireballPrefab: {fileID: 141530, guid: 369eee557c4d41c479225bf744fa6a5f, type: 3}
+  swordPrefab: {fileID: 0}
+--- !u!114 &875572532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8887731477403403030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd20084fd5b3ac40825edad2a7304ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 1000
+  currentHealth: 1000
+  currentCoins: 0
+  hud: {fileID: 0}
+--- !u!136 &-1851999416123661125
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8887731477403403030}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5431576
+  m_Height: 1.3275732
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.6455211, z: 0.011030197}
 --- !u!1 &8887731477403403032
 GameObject:
   m_ObjectHideFlags: 0

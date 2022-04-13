@@ -13,6 +13,9 @@ namespace DigitalRuby.PyroParticles
         // Getting the fireball object publically
         public GameObject fireballPrefab;
 
+        // getting the sword object publically
+        public GameObject swordPrefab;
+
         // holding the fireball object separately so original prefab won't be destroyed
         private GameObject fireballPrefabObject;
 
@@ -55,8 +58,29 @@ namespace DigitalRuby.PyroParticles
                 }
             }
 
+            // Left mouse click. Sword attack
+            if (Input.GetButtonDown("Sword"))
+            {
+                Debug.Log("Left mouse pushed");
+
+                // If you are currently not attacking, set the animation trigger, give it time to
+                // set, then start the sword animation
+                if(!currentlyAttacking)
+                {
+                    d_anim.SetTrigger("useSword");
+                    StartCoroutine(initializeAttack());
+
+                    // create a boxcollider that will exist around the sword only during attack
+                    BoxCollider swordCollider = swordPrefab.AddComponent<BoxCollider>();
+                    swordCollider.center = new Vector3(-0.01f, 0.7f, 0.01f);
+                    swordCollider.size = new Vector3(0.2f, 1.3f, 0.07f);
+                    Destroy(swordCollider, 0.4f);
+                    
+                }
+            }
+
             // if you are attacking and the animation is about done (reached animTime) let the player attack again
-            if(currentlyAttacking && d_anim.GetCurrentAnimatorStateInfo(1).normalizedTime >= animTime)
+            if (currentlyAttacking && d_anim.GetCurrentAnimatorStateInfo(1).normalizedTime >= animTime)
             {
                 currentlyAttacking = false;
             }

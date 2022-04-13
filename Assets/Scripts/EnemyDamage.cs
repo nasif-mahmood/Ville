@@ -65,6 +65,12 @@ public class EnemyDamage : MonoBehaviour
             Debug.Log("Fireball hurt enemy");
             TakeDamage(20.0f);
         }
+
+        if(target.gameObject.tag.Equals("Weapon") && !hasDied)
+        {
+            Debug.Log("Sword hurt enemy");
+            TakeDamage(40.0f);
+        }
     }
 
     /*

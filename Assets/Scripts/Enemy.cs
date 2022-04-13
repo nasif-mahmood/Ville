@@ -94,15 +94,6 @@ public class Enemy : MonoBehaviour
         
     }
 
-    // to play the animator of the enemy once it dies
-    public void hasDiedAnim()
-    {
-        enemy_anim = GetComponentInParent<Animator>();
-        enemy_anim.SetBool("hasDied", true);
-
-        Destroy(gameObject, 2.5f);
-    }
-
     private void moveAround()
     {
         // if enemy was moving before, set the animation back to not moving now
@@ -209,6 +200,15 @@ public class Enemy : MonoBehaviour
         isAttacking = false;
     }
 
+    // to play the animator of the enemy once it dies
+    public void hasDiedAnim()
+    {
+        enemy_anim = GetComponentInParent<Animator>();
+        enemy_anim.SetBool("hasDied", true);
+
+        Destroy(gameObject, 3f);
+    }
+
     //public void TakeDamage(float damage)
     //{
     //    currentHealth -= damage;
@@ -222,7 +222,7 @@ public class Enemy : MonoBehaviour
 
     ///*
     //Called when enemy dies
-    
+
     //void OnDeath()
     //{
     //    Debug.Log("Enemy died!");

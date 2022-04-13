@@ -25,8 +25,8 @@ public class RigidBodyMovement : MonoBehaviour
     // holds the number of times a player has jumped in a row (should only allow 2 times for double jump)
     private bool canDoubleJump = false;
 
-    // detects whether player is crawling or not
-    //private bool isCrawling = false;
+    // stores the current gravity of the player, used for double jump calculations
+    private float currentGravity;
 
     public float speed = 5f;
     public float jumpForce = 7f;
@@ -105,20 +105,50 @@ public class RigidBodyMovement : MonoBehaviour
         }
         else if(canDoubleJump && Input.GetButtonDown("Jump"))
         {
+
+            // store the current gravity of the character
+            currentGravity = character.velocity.y;
+
             canDoubleJump = false;
 
-            // if the player is close to the ground, make the jumpForce greater
-            if(Physics.CheckSphere(feetTransform.position, 0.8f, FloorMask))
+            // if the character is falling and not close to ground, make the jumpForce greater
+            if (currentGravity < -0.1f)
             {
-                Debug.Log(feetTransform.position.y);
-                character.AddForce(Vector3.up * (jumpForce + 1), ForceMode.Impulse);
+                Debug.Log("falling, not close to ground");
+
+                // -currentGravity nullifies the downward force, adding jumpforce gives character
+                // upward force
+                character.AddForce(Vector3.up * -currentGravity + new Vector3(0, jumpForce, 0), ForceMode.Impulse);
             }
+
+            // if the player is close to the ground and is not falling, make the jumpForce smaller
+            else if (Physics.CheckSphere(feetTransform.position, 0.8f, FloorMask)
+                     && currentGravity > 0.1f)
+            {
+                Debug.Log("close to ground, not falling");
+                character.AddForce(Vector3.up * (jumpForce - 4), ForceMode.Impulse);
+            }
+
+            // else, player is jumping while going up and is not close to ground
             else
             {
-                Debug.Log(feetTransform.position.y + " >= 0.8");
-                character.AddForce(Vector3.up * (jumpForce - 2), ForceMode.Impulse);
+                character.AddForce(Vector3.up * (jumpForce - 3), ForceMode.Impulse);
             }
-               
+
+
+
+            //// if the player is close to the ground, make the jumpForce greater
+            //if(Physics.CheckSphere(feetTransform.position, 0.8f, FloorMask))
+            //{
+            //    Debug.Log(feetTransform.position.y);
+            //    character.AddForce(Vector3.up * (jumpForce + 1), ForceMode.Impulse);
+            //}
+            //else
+            //{
+            //    Debug.Log(feetTransform.position.y + " >= 0.8");
+            //    character.AddForce(Vector3.up * (jumpForce - 2), ForceMode.Impulse);
+            //}
+
         }
     }
 
