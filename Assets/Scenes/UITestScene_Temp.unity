@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &86661491 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7510216214413806077, guid: a70466b11be54664f8239a0dc2d6074f, type: 3}
-  m_PrefabInstance: {fileID: 7510216214365982862}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1494461881
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,9 +555,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c3593101fa273f4a82d3d4f3866d96c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hudHealthbar: {fileID: 86661491}
-  maxHealth: 100
-  currentHealth: 100
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  floorLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  agent: {fileID: 0}
+  enemy: {fileID: 0}
+  walkRange: 0
+  sightRange: 0
+  attackRange: 0
 --- !u!4 &2086555805 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2066896392038131574, guid: 45288819fde2143449a96207b14db0bb, type: 3}
