@@ -8,6 +8,7 @@ TagManager:
   - Fire
   - Popup
   - Weapon
+  - Coin
   layers:
   - Default
   - TransparentFX

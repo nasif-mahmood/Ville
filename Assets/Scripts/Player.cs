@@ -73,6 +73,10 @@ public class Player : MonoBehaviour
             currentPopup = target.gameObject;
             currentPopup.transform.GetChild(1).gameObject.active = true;
         }
+        else if (target.gameObject.tag.Equals("Coin"))
+        {
+            AddCoins(1);
+        }
     }
 
     void OnTriggerStay(Collider target)
