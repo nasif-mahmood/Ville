@@ -9,6 +9,7 @@ TagManager:
   - Popup
   - Weapon
   - Coin
+  - Heart
   layers:
   - Default
   - TransparentFX

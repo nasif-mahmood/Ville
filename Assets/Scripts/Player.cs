@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
 
     public void GetHeal(float heal)
     {
-        currentHealth = Mathf.Max(currentHealth + heal, maxHealth);
+        currentHealth = Mathf.Min(currentHealth + heal, maxHealth);
         hudUpdate.UpdateVisuals();
     }
 
@@ -76,6 +76,10 @@ public class Player : MonoBehaviour
         else if (target.gameObject.tag.Equals("Coin"))
         {
             AddCoins(1);
+        }
+        else if (target.gameObject.tag.Equals("Heart"))
+        {
+            GetHeal(250.0f);
         }
     }
 
