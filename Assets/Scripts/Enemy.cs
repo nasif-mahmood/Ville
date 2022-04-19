@@ -19,7 +19,9 @@ public class Enemy : MonoBehaviour
 
     public NavMeshAgent agent;
     private GameObject player;
-    public GameObject enemy;
+    //public GameObject enemy;
+    private Transform enemy;
+    static List <Enemy> enemies;
     private Animator enemy_anim;
 
 
@@ -53,13 +55,15 @@ public class Enemy : MonoBehaviour
     {
         // healthbar = hudHealthbar.GetComponent<Image>();
 
+        enemy = this.transform;
+
         // Enemy AI stuff
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
 
         enemy_anim = GetComponent<Animator>();
 
-        originalLocation = enemy.transform.position;
+        originalLocation = this.transform.position;
     }
 
     // Update is called once per frame
@@ -137,7 +141,7 @@ public class Enemy : MonoBehaviour
                 agent.SetDestination(destinationPoint);
             }
 
-            distanceFromDestination = enemy.transform.position - destinationPoint;
+            distanceFromDestination = this.transform.position - destinationPoint;
 
             // if you are very close to your destination point, then you reached it
             if (distanceFromDestination.magnitude < 0.1f)
@@ -206,7 +210,7 @@ public class Enemy : MonoBehaviour
         enemy_anim = GetComponentInParent<Animator>();
         enemy_anim.SetBool("hasDied", true);
 
-        Destroy(gameObject, 3f);
+        Destroy(enemy.gameObject, 3f);
     }
 
     //public void TakeDamage(float damage)

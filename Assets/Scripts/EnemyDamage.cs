@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class EnemyDamage : MonoBehaviour
 {
+    private Enemy enemyScript;
     public GameObject hudHealthbar;
     public float maxHealth = 100;
     public float currentHealth = 100;
@@ -17,6 +18,7 @@ public class EnemyDamage : MonoBehaviour
     void Start()
     {
         healthbar = hudHealthbar.GetComponent<Image>();
+        enemyScript = GetComponentInParent<Enemy>();
     }
 
     // Update is called once per frame
@@ -41,7 +43,7 @@ public class EnemyDamage : MonoBehaviour
     */
     void OnDeath()
     {
-        Enemy enemyScript = GameObject.FindObjectOfType(typeof(Enemy)) as Enemy;
+        //Enemy enemyScript = GameObject.FindObjectOfType(typeof(Enemy)) as Enemy;
         Debug.Log("Enemy died!");
         hasDied = true;
 
