@@ -196,6 +196,8 @@ MonoBehaviour:
   hudHealthbar: {fileID: 883807141842061288}
   coinCounter: {fileID: 883807141417572033}
   pauseMenu: {fileID: 883807141344605657}
+  isPopupActive: 0
+  isPauseActive: 0
 --- !u!1 &883807141344605657
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,7 +391,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: X 10
+  m_Text: X 0
 --- !u!1 &883807141477476734
 GameObject:
   m_ObjectHideFlags: 0
