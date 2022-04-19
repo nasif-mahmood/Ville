@@ -10,6 +10,8 @@ TagManager:
   - Weapon
   - Coin
   - Heart
+  - GoldBar
+  - Star
   layers:
   - Default
   - TransparentFX

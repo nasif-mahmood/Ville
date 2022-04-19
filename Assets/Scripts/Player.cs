@@ -83,6 +83,14 @@ public class Player : MonoBehaviour
         {
             GetHeal(250.0f);
         }
+        else if (target.gameObject.tag.Equals("GoldBar"))
+        {
+            AddCoins(10);
+        }
+        //else if (target.gameObject.tag.Equals("Star"))
+        //{
+            // endlevel()
+        //}
     }
 
     void OnTriggerStay(Collider target)
