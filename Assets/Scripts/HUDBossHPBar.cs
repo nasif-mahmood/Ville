@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class HUDBossHPBar : MonoBehaviour
 {
-    public GameObject boss;
-    public int hpChildIndex = 3;
-    private GameObject bossHP;
+    public GameObject bossHP;
     // Start is called before the first frame update
     void Start()
     {
-        bossHP = boss.transform.GetChild(hpChildIndex).gameObject;
-        bossHP.active = false;
+        bossHP.SetActive(false);
     }
 
     // Update is called once per frame
@@ -22,11 +19,17 @@ public class HUDBossHPBar : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        bossHP.active = true;
+        if(other.tag == "Player")
+        {
+            bossHP.SetActive(true);
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        bossHP.active = false;
+        if(other.tag == "Player")
+        {
+            bossHP.SetActive(false);
+        }
     }
 }
