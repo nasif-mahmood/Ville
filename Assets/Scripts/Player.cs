@@ -63,7 +63,6 @@ public class Player : MonoBehaviour
     void OnTriggerEnter(Collider target)
     {
         // if the player touches the enemy and the enemy hasn't died yet, the player should take damage
-        // if (target.gameObject.tag.Equals("Enemy"))();
         enemyDamageScript = target.GetComponent<EnemyDamage>();
         if (target.gameObject.tag.Equals("Enemy") && enemyDamageScript.enemyDeath() == false)
         {
