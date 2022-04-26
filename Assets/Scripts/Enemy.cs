@@ -21,7 +21,6 @@ public class Enemy : MonoBehaviour
     private GameObject player;
     //public GameObject enemy;
     private Transform enemy;
-    static List <Enemy> enemies;
     private Animator enemy_anim;
 
 
