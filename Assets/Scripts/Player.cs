@@ -19,9 +19,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         hudUpdate = hud.GetComponent<UpdateHUD>();
-
-        //enemyDamageScript = GameObject.FindObjectOfType(typeof(EnemyDamage)) as EnemyDamage;
-        //enemyDamageScript = GetComponentInParent<EnemyDamage>();
+        
     }
 
     // Update is called once per frame
@@ -65,7 +63,8 @@ public class Player : MonoBehaviour
     void OnTriggerEnter(Collider target)
     {
         // if the player touches the enemy and the enemy hasn't died yet, the player should take damage
-        // if (target.gameObject.tag.Equals("Enemy"))
+        // if (target.gameObject.tag.Equals("Enemy"))();
+        enemyDamageScript = target.GetComponent<EnemyDamage>();
         if (target.gameObject.tag.Equals("Enemy") && enemyDamageScript.enemyDeath() == false)
         {
             TakeDamage(10.0f);
