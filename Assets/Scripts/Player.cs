@@ -1,17 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
     public float maxHealth = 1000.0f;
     public float currentHealth = 1000.0f;
-    public int currentCoins;
+    public static int currentCoins;
     public GameObject hud;
 
     UpdateHUD hudUpdate;
     GameObject currentPopup;
 
+    private Scene scene;
+    
     // object to the enemy damage so that the Player script and EnemyDamage script can communicate
     EnemyDamage enemyDamageScript;
 
@@ -19,7 +22,9 @@ public class Player : MonoBehaviour
     void Start()
     {
         hudUpdate = hud.GetComponent<UpdateHUD>();
-        
+        scene = SceneManager.GetActiveScene();
+        Debug.Log("Name: " + scene.name);
+        hudUpdate.UpdateVisuals();
     }
 
     // Update is called once per frame
@@ -58,8 +63,24 @@ public class Player : MonoBehaviour
         // For testing purposes refill HP on death, delete later
         currentHealth = maxHealth;
         hudUpdate.UpdateVisuals();
+        
+        // reset the scene
+        SceneManager.LoadScene(scene.name);
     }
 
+    void endLevel()
+    {
+        Debug.Log("Entering Next Level");
+        // fill hp back up
+        currentHealth = maxHealth;
+        hudUpdate.UpdateVisuals();
+        
+        // change to next scene
+        if (scene.name == "ForestLevel")
+        {
+            SceneManager.LoadScene("CaveLevel");
+        }
+    }
     void OnTriggerEnter(Collider target)
     {
         // if the player touches the enemy and the enemy hasn't died yet, the player should take damage
@@ -85,10 +106,10 @@ public class Player : MonoBehaviour
         {
             AddCoins(10);
         }
-        //else if (target.gameObject.tag.Equals("Star"))
-        //{
-            // endlevel()
-        //}
+        else if (target.gameObject.tag.Equals("Star"))
+        {
+            endLevel();
+        }
         
         else if (target.gameObject.tag.Equals("Water"))
         {

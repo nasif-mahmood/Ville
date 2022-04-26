@@ -50,7 +50,7 @@ public class UpdateHUD : MonoBehaviour
     public void UpdateVisuals()
     {
         healthbar.fillAmount = mainPlayer.currentHealth / mainPlayer.maxHealth;
-        coinText.text = "X " + mainPlayer.currentCoins;
+        coinText.text = "X " + Player.currentCoins;
     }
 
     /*
