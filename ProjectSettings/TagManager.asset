@@ -12,6 +12,7 @@ TagManager:
   - Heart
   - GoldBar
   - Star
+  - Water
   layers:
   - Default
   - TransparentFX

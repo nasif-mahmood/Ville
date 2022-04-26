@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     {
         hudUpdate = hud.GetComponent<UpdateHUD>();
 
-        enemyDamageScript = GameObject.FindObjectOfType(typeof(EnemyDamage)) as EnemyDamage;
+        //enemyDamageScript = GameObject.FindObjectOfType(typeof(EnemyDamage)) as EnemyDamage;
         //enemyDamageScript = GetComponentInParent<EnemyDamage>();
     }
 
@@ -91,6 +91,12 @@ public class Player : MonoBehaviour
         //{
             // endlevel()
         //}
+        
+        else if (target.gameObject.tag.Equals("Water"))
+        {
+            OnDeath();
+        }
+        
     }
 
     void OnTriggerStay(Collider target)
