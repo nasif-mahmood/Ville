@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 3b7f6f943110cf64f97a7c72bed41d34
   - enabled: 1
-    path: Assets/Scenes/UITestScene_Temp.unity
-    guid: c80b1a3ce7da25b4082067c7f62523ee
+    path: Assets/Scenes/ForestLevel.unity
+    guid: 138791062d16ce6458a5851a0e2e5d5e
+  - enabled: 1
+    path: Assets/Scenes/CaveLevel.unity
+    guid: cc2ac4607bfb9e14589689b64bac6c50
   m_configObjects: {}

@@ -20,7 +20,7 @@ public class MainMenuHandler : MonoBehaviour
 
     public void StartGame()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("UITestScene_Temp");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("ForestLevel");
     }
 
     public void EndGame()
