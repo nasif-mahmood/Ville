@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        if(currentHealth < 0)
+        if(currentHealth <= 0)
         {
             OnDeath();
         }
@@ -59,11 +59,12 @@ public class Player : MonoBehaviour
     {
         // TODO: Add death UI screen and any on-death events
         Debug.Log("Player died! Oh no!");
+
         currentCoins = 0;
         // For testing purposes refill HP on death, delete later
         currentHealth = maxHealth;
         hudUpdate.UpdateVisuals();
-
+        
         // reset the scene
         //SceneManager.LoadScene(scene.name);
         hudUpdate.ShowDeathMenu();    // Show death menu
@@ -88,7 +89,11 @@ public class Player : MonoBehaviour
         enemyDamageScript = target.GetComponent<EnemyDamage>();
         if (target.gameObject.tag.Equals("Enemy") && enemyDamageScript.enemyDeath() == false)
         {
-            TakeDamage(10.0f);
+            TakeDamage(200.0f);
+        }
+        else if (target.gameObject.tag.Equals("FinalEnemy") && enemyDamageScript.enemyDeath() == false)
+        {
+            TakeDamage(250.0f);
         }
         else if (target.gameObject.tag.Equals("Popup")) 
         {
@@ -119,13 +124,13 @@ public class Player : MonoBehaviour
         
     }
 
-    void OnTriggerStay(Collider target)
-    {
-        if(target.gameObject.tag.Equals("Enemy") && enemyDamageScript.enemyDeath() == false)
-        {
-            TakeDamage(10.0f);
-        }
-    }
+    // void OnTriggerStay(Collider target)
+    // {
+    //     if(target.gameObject.tag.Equals("Enemy") && enemyDamageScript.enemyDeath() == false)
+    //     {
+    //         TakeDamage(10.0f);
+    //     }
+    // }
 
     void OnTriggerExit(Collider target)
     {

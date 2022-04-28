@@ -135,20 +135,6 @@ public class RigidBodyMovement : MonoBehaviour
                 character.AddForce(Vector3.up * (jumpForce - 3), ForceMode.Impulse);
             }
 
-
-
-            //// if the player is close to the ground, make the jumpForce greater
-            //if(Physics.CheckSphere(feetTransform.position, 0.8f, FloorMask))
-            //{
-            //    Debug.Log(feetTransform.position.y);
-            //    character.AddForce(Vector3.up * (jumpForce + 1), ForceMode.Impulse);
-            //}
-            //else
-            //{
-            //    Debug.Log(feetTransform.position.y + " >= 0.8");
-            //    character.AddForce(Vector3.up * (jumpForce - 2), ForceMode.Impulse);
-            //}
-
         }
     }
 
@@ -157,6 +143,12 @@ public class RigidBodyMovement : MonoBehaviour
         // check if the player is on the ground
         isGrounded = Physics.CheckSphere(feetTransform.position, 0.1f, FloorMask);
            
+    }
+
+    // Gets the animator for the dog
+    public Animator getDogAnim()
+    {
+        return d_anim;
     }
 }
 
