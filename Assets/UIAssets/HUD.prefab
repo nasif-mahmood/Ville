@@ -446,9 +446,6 @@ MonoBehaviour:
   playerObject: {fileID: 0}
   hudHealthbar: {fileID: 883807141842061288}
   coinCounter: {fileID: 883807141417572033}
-  pauseMenu: {fileID: 883807141344605657}
-  deathMenu: {fileID: 0}
-  levelMenu: {fileID: 0}
   isPopupActive: 0
   isPauseActive: 0
   isTransitionActive: 0
@@ -1952,7 +1949,7 @@ PrefabInstance:
       objectReference: {fileID: 883807141286812002}
     - target: {fileID: 7926746813766525125, guid: a27fa52f45735e444827d2a2b2397097, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: FlipPauseMenu
+      value: NextLevel
       objectReference: {fileID: 0}
     - target: {fileID: 7926746813766525125, guid: a27fa52f45735e444827d2a2b2397097, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -2074,7 +2071,7 @@ PrefabInstance:
       objectReference: {fileID: 883807141286812002}
     - target: {fileID: 7926746813766525125, guid: a27fa52f45735e444827d2a2b2397097, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: FlipPauseMenu
+      value: PlayerRestart
       objectReference: {fileID: 0}
     - target: {fileID: 7926746813766525125, guid: a27fa52f45735e444827d2a2b2397097, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
