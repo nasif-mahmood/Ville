@@ -14,6 +14,8 @@ public class EnemyDamage : MonoBehaviour
 
     Image healthbar;
 
+    public GameObject star;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -45,10 +47,17 @@ public class EnemyDamage : MonoBehaviour
     {
         //Enemy enemyScript = GameObject.FindObjectOfType(typeof(Enemy)) as Enemy;
         Debug.Log("Enemy died!");
+
         hasDied = true;
+        Vector3 deathPos = this.gameObject.transform.position;
 
         // call the function to set the death animation in the Enemy Script
         enemyScript.hasDiedAnim();
+        if (this.gameObject.tag.Equals("FinalEnemy"))
+        {
+            Debug.Log("Final died!");
+            GameObject goalStar = Instantiate(star, deathPos, Quaternion.identity);
+        }
     }
 
 

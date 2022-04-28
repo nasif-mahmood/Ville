@@ -13,6 +13,7 @@ TagManager:
   - GoldBar
   - Star
   - Water
+  - FinalEnemy
   layers:
   - Default
   - TransparentFX

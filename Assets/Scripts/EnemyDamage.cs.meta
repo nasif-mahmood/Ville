@@ -3,7 +3,9 @@ guid: b895008525b87e645952bf59294ad3f5
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - hudHealthbar: {instanceID: 0}
+  - star: {fileID: 2638917512070871692, guid: d4fefe25b060e9645a4e7d84f9e0bf88, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

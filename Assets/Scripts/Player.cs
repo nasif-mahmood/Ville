@@ -89,6 +89,10 @@ public class Player : MonoBehaviour
         {
             TakeDamage(10.0f);
         }
+        else if (target.gameObject.tag.Equals("FinalEnemy") && enemyDamageScript.enemyDeath() == false)
+        {
+            TakeDamage(10.0f);
+        }
         else if (target.gameObject.tag.Equals("Popup")) 
         {
             currentPopup = target.gameObject;
@@ -118,13 +122,13 @@ public class Player : MonoBehaviour
         
     }
 
-    void OnTriggerStay(Collider target)
-    {
-        if(target.gameObject.tag.Equals("Enemy") && enemyDamageScript.enemyDeath() == false)
-        {
-            TakeDamage(10.0f);
-        }
-    }
+    // void OnTriggerStay(Collider target)
+    // {
+    //     if(target.gameObject.tag.Equals("Enemy") && enemyDamageScript.enemyDeath() == false)
+    //     {
+    //         TakeDamage(10.0f);
+    //     }
+    // }
 
     void OnTriggerExit(Collider target)
     {
