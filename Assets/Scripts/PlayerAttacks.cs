@@ -73,8 +73,9 @@ namespace DigitalRuby.PyroParticles
                     // create a boxcollider that will exist around the sword only during attack
                     BoxCollider swordCollider = swordPrefab.AddComponent<BoxCollider>();
                     swordCollider.center = new Vector3(-0.01f, 0.7f, 0.01f);
-                    swordCollider.size = new Vector3(0.2f, 1.3f, 0.07f);
-                    Destroy(swordCollider, 0.4f);
+                    // swordCollider.size = new Vector3(0.2f, 1.3f, 0.07f);
+                    swordCollider.size = new Vector3(0.2f, 1.9f, 0.07f);
+                    Destroy(swordCollider, 0.35f);
                     
                 }
             }
