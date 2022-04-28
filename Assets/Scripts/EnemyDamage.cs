@@ -21,6 +21,7 @@ public class EnemyDamage : MonoBehaviour
     {
         healthbar = hudHealthbar.GetComponent<Image>();
         enemyScript = GetComponentInParent<Enemy>();
+        
     }
 
     // Update is called once per frame
@@ -49,14 +50,15 @@ public class EnemyDamage : MonoBehaviour
         Debug.Log("Enemy died!");
 
         hasDied = true;
-        Vector3 deathPos = this.gameObject.transform.position;
+        //Vector3 deathPos = this.gameObject.transform.position;
 
         // call the function to set the death animation in the Enemy Script
-        enemyScript.hasDiedAnim();
-        if (this.gameObject.tag.Equals("FinalEnemy"))
+        var info = enemyScript.hasDiedAnim();
+        if (info.Tag == true)
         {
             Debug.Log("Final died!");
-            GameObject goalStar = Instantiate(star, deathPos, Quaternion.identity);
+            GameObject goalStar = Instantiate(star, new Vector3(69.38f, 14.61f, 47.17f), Quaternion.identity);
+            Debug.Log("instantiated star" + "at: " + info.Pos);
         }
     }
 

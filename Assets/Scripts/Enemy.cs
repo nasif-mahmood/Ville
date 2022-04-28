@@ -5,6 +5,21 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+    
+    public struct DeathInfo
+    {
+        public DeathInfo(Vector3 pos, bool tag)
+        {
+            Pos = pos;
+            Tag = tag;
+        }
+
+        public Vector3 Pos { get; }
+        public bool Tag { get; }
+
+        //public override string ToString() => $"({X}, {Y})";
+    }
+    
     //public GameObject hudHealthbar;
     //public float maxHealth = 100;
     //public float currentHealth = 100;
@@ -204,12 +219,16 @@ public class Enemy : MonoBehaviour
     }
 
     // to play the animator of the enemy once it dies
-    public void hasDiedAnim()
+    public DeathInfo hasDiedAnim()
     {
         enemy_anim = GetComponentInParent<Animator>();
         enemy_anim.SetBool("hasDied", true);
+        bool isFinal = this.gameObject.tag.Equals("FinalEnemy");
+        Vector3 deathPos = this.gameObject.transform.position;
+        var d1 = new DeathInfo(deathPos, isFinal);
 
         Destroy(enemy.gameObject, 3f);
+        return d1;
     }
 
     //public void TakeDamage(float damage)
