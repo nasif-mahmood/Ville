@@ -63,9 +63,10 @@ public class Player : MonoBehaviour
         // For testing purposes refill HP on death, delete later
         currentHealth = maxHealth;
         hudUpdate.UpdateVisuals();
-        
+
         // reset the scene
-        SceneManager.LoadScene(scene.name);
+        //SceneManager.LoadScene(scene.name);
+        hudUpdate.ShowDeathMenu();    // Show death menu
     }
 
     void endLevel()
@@ -74,12 +75,12 @@ public class Player : MonoBehaviour
         // fill hp back up
         currentHealth = maxHealth;
         hudUpdate.UpdateVisuals();
-        
+        hudUpdate.ShowLevelEndMenu();
         // change to next scene
-        if (scene.name == "ForestLevel")
-        {
-            SceneManager.LoadScene("CaveLevel");
-        }
+        //if (scene.name == "ForestLevel")
+        //{
+        //    SceneManager.LoadScene("CaveLevel");
+        //}
     }
     void OnTriggerEnter(Collider target)
     {
@@ -87,11 +88,7 @@ public class Player : MonoBehaviour
         enemyDamageScript = target.GetComponent<EnemyDamage>();
         if (target.gameObject.tag.Equals("Enemy") && enemyDamageScript.enemyDeath() == false)
         {
-            TakeDamage(50.0f);
-        }
-        else if (target.gameObject.tag.Equals("FinalEnemy") && enemyDamageScript.enemyDeath() == false)
-        {
-            TakeDamage(100.0f);
+            TakeDamage(10.0f);
         }
         else if (target.gameObject.tag.Equals("Popup")) 
         {
@@ -122,13 +119,13 @@ public class Player : MonoBehaviour
         
     }
 
-    // void OnTriggerStay(Collider target)
-    // {
-    //     if(target.gameObject.tag.Equals("Enemy") && enemyDamageScript.enemyDeath() == false)
-    //     {
-    //         TakeDamage(10.0f);
-    //     }
-    // }
+    void OnTriggerStay(Collider target)
+    {
+        if(target.gameObject.tag.Equals("Enemy") && enemyDamageScript.enemyDeath() == false)
+        {
+            TakeDamage(10.0f);
+        }
+    }
 
     void OnTriggerExit(Collider target)
     {
