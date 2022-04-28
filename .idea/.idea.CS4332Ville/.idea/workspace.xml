@@ -21,6 +21,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/RigidBodyMovement.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UpdateHUD.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EnemyDamage.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -74,7 +75,9 @@
       <workItem from="1650989760854" duration="9805000" />
       <workItem from="1651164460050" duration="3266000" />
       <workItem from="1651168323143" duration="978000" />
-      <workItem from="1651171405452" duration="1652000" />
+      <workItem from="1651171405452" duration="1767000" />
+      <workItem from="1651186345770" duration="36000" />
+      <workItem from="1651187722276" duration="347000" />
     </task>
     <servers />
   </component>

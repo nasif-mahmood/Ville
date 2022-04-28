@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class EnemyDamage : MonoBehaviour
 {
@@ -16,12 +17,14 @@ public class EnemyDamage : MonoBehaviour
 
     public GameObject star;
     
+    private Scene scene;
+    
     // Start is called before the first frame update
     void Start()
     {
         healthbar = hudHealthbar.GetComponent<Image>();
         enemyScript = GetComponentInParent<Enemy>();
-        
+        scene = SceneManager.GetActiveScene();
     }
 
     // Update is called once per frame
@@ -57,7 +60,14 @@ public class EnemyDamage : MonoBehaviour
         if (info.Tag == true)
         {
             Debug.Log("Final died!");
-            GameObject goalStar = Instantiate(star, new Vector3(69.38f, 14.61f, 47.17f), Quaternion.identity);
+            if (scene.name == "tutorialv2")
+            {
+                GameObject goalStar = Instantiate(star, new Vector3(69.38f, 14.61f, 47.17f), Quaternion.identity);
+            }
+            else if (scene.name == "CaveLevel")
+            {
+                GameObject goalStar = Instantiate(star, new Vector3(10.1974678f,4.3499999f,4.56713867f), Quaternion.identity);      
+            }
             Debug.Log("instantiated star" + "at: " + info.Pos);
         }
     }
