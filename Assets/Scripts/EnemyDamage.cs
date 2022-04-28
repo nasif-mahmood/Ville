@@ -66,7 +66,7 @@ public class EnemyDamage : MonoBehaviour
             }
             else if (scene.name == "CaveLevel")
             {
-                GameObject goalStar = Instantiate(star, new Vector3(10.1974678f,4.3499999f,4.56713867f), Quaternion.identity);      
+                GameObject goalStar = Instantiate(star, new Vector3(3.81999993f,10.3599997f,31.5100002f), Quaternion.identity);      
             }
             Debug.Log("instantiated star" + "at: " + info.Pos);
         }
