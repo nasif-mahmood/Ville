@@ -12,12 +12,6 @@ public class UpdateHUD : MonoBehaviour
     public GameObject hudHealthbar;
     [Tooltip("HUD Coin Counter GameObject")]
     public GameObject coinCounter;
-    [Tooltip("Pause Menu GameObject")]
-    public GameObject pauseMenu;
-    [Tooltip("Death Menu GameObject")]
-    public GameObject deathMenu;
-    [Tooltip("Next Level GameObject")]
-    public GameObject levelMenu;
     [Tooltip("Flag that a popup is active")]
     public bool isPopupActive = false;
     [Tooltip("Flag that pause menu is active")]
@@ -25,6 +19,10 @@ public class UpdateHUD : MonoBehaviour
     [Tooltip("Flag for if in level transition/death menu")]
     public bool isTransitionActive = false;
 
+    GameObject pauseMenu;   // Pause menu child GameObject
+    GameObject deathMenu;   // Death menu child GameObject
+    GameObject levelMenu;   // Level menu child GameObject
+    GameObject endMenu;     // End menu child GameObject
     Image healthbar;    // Stores reference to HUD healthbar
     Player mainPlayer;  // Stores reference to player's Player script for HP/coins
     Text coinText;      // Stores reference to HUD text
@@ -38,6 +36,7 @@ public class UpdateHUD : MonoBehaviour
         pauseMenu = transform.GetChild(4).gameObject;
         deathMenu = transform.GetChild(5).gameObject;
         levelMenu = transform.GetChild(6).gameObject;
+        endMenu = transform.GetChild(7).gameObject;
         healthbar = hudHealthbar.GetComponent<Image>();
         mainPlayer = playerObject.GetComponent<Player>();
         coinText = coinCounter.GetComponent<Text>();
@@ -98,6 +97,7 @@ public class UpdateHUD : MonoBehaviour
     public void PlayerRestart()
     {
         Time.timeScale = 1;
+        currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
     }
 
@@ -124,6 +124,11 @@ public class UpdateHUD : MonoBehaviour
         {
             SceneManager.LoadScene("CaveLevel");
         }
+        else
+        {
+            Time.timeScale = 0;
+            endMenu.active = true;
+        }
     }
 
     /*
@@ -139,3 +144,4 @@ public class UpdateHUD : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 }
+
