@@ -89,11 +89,11 @@ public class Player : MonoBehaviour
         enemyDamageScript = target.GetComponent<EnemyDamage>();
         if (target.gameObject.tag.Equals("Enemy") && enemyDamageScript.enemyDeath() == false)
         {
-            TakeDamage(200.0f);
+            TakeDamage(100.0f);
         }
         else if (target.gameObject.tag.Equals("FinalEnemy") && enemyDamageScript.enemyDeath() == false)
         {
-            TakeDamage(250.0f);
+            TakeDamage(150.0f);
         }
         else if (target.gameObject.tag.Equals("Popup")) 
         {
