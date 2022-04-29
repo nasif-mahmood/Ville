@@ -21,6 +21,8 @@ namespace DigitalRuby.PyroParticles
 
         private FireBaseScript fireballPrefabScript;
 
+        public AudioSource swordSound;
+        
         // variables such that the fireball can't be spawned again until 2 seconds have passed
         float fireballDelay = 1.0f;
         float buttonPressTime;
@@ -69,7 +71,7 @@ namespace DigitalRuby.PyroParticles
                 {
                     d_anim.SetTrigger("useSword");
                     StartCoroutine(initializeAttack());
-
+                    swordSound.Play();
                     // create a boxcollider that will exist around the sword only during attack
                     BoxCollider swordCollider = swordPrefab.AddComponent<BoxCollider>();
                     swordCollider.center = new Vector3(-0.01f, 0.7f, 0.01f);
