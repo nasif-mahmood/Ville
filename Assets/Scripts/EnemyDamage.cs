@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DigitalRuby.PyroParticles;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -18,6 +19,8 @@ public class EnemyDamage : MonoBehaviour
     public GameObject star;
     
     private Scene scene;
+
+    public AudioSource starSound;
     
     // Start is called before the first frame update
     void Start()
@@ -62,10 +65,12 @@ public class EnemyDamage : MonoBehaviour
             Debug.Log("Final died!");
             if (scene.name == "tutorialv2")
             {
+                starSound.Play();
                 GameObject goalStar = Instantiate(star, new Vector3(69.38f, 14.61f, 47.17f), Quaternion.identity);
             }
             else if (scene.name == "CaveLevel")
             {
+                starSound.Play();
                 GameObject goalStar = Instantiate(star, new Vector3(3.81999993f,10.3599997f,31.5100002f), Quaternion.identity);      
             }
             Debug.Log("instantiated star" + "at: " + info.Pos);
