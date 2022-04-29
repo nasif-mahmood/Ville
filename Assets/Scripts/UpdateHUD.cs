@@ -128,6 +128,7 @@ public class UpdateHUD : MonoBehaviour
         {
             Time.timeScale = 0;
             endMenu.active = true;
+            levelMenu.active = false;
         }
     }
 
