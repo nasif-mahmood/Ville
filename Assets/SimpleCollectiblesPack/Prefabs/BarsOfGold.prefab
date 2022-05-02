@@ -99,7 +99,7 @@ MonoBehaviour:
   CollectibleType: 0
   rotate: 1
   rotationSpeed: 10
-  collectSound: {fileID: 0}
+  collectSound: {fileID: 8300000, guid: 50a502d154960a245ac3b84b7b525ff1, type: 3}
   collectEffect: {fileID: 1702657300312902, guid: a45c51da10cf1a84abc6a99c06951e3f, type: 3}
 --- !u!82 &82128172467686612
 AudioSource:
@@ -111,8 +111,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 50a502d154960a245ac3b84b7b525ff1, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
