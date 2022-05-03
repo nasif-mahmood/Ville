@@ -29,7 +29,7 @@ public class RigidBodyMovement : MonoBehaviour
     private float currentGravity;
 
     public float speed = 5f;
-    public float runSpeed = 7f;
+    public float runSpeed = 8f;
     public float jumpForce = 7f;
     public float rotationSpeed = 75.0f;
 
