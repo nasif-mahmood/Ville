@@ -29,12 +29,17 @@ public class RigidBodyMovement : MonoBehaviour
     private float currentGravity;
 
     public float speed = 5f;
+    public float runSpeed = 7f;
     public float jumpForce = 7f;
     public float rotationSpeed = 75.0f;
-    
+
+    // Another variable that holds the speed so you can switch back to default after running
+    private float defaultSpeed;
+
     // use this for initialization
     private void Start()
     {
+        defaultSpeed = speed;
         d_anim = GetComponentInChildren<Animator>();
     }
 
@@ -89,6 +94,19 @@ public class RigidBodyMovement : MonoBehaviour
         else
         {
             d_anim.SetBool("isMoving", false);
+        }
+
+        
+
+        // Run Button
+        if (Input.GetKey("left shift"))
+        {
+            speed = runSpeed;
+        }
+        else
+        {
+            // if button is not pushed, the speed should be the default
+            speed = defaultSpeed;
         }
 
     }
