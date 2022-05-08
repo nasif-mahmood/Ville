@@ -83,7 +83,6 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // TODO: Implement enemy AI behavior
         // Check whether the enemy is within a certain range of the player
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, playerLayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerLayer);
