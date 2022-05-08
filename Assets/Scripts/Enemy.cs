@@ -229,46 +229,4 @@ public class Enemy : MonoBehaviour
         Destroy(enemy.gameObject, 3f);
         return d1;
     }
-
-    //public void TakeDamage(float damage)
-    //{
-    //    currentHealth -= damage;
-    //    if (currentHealth <= 0)
-    //    {
-    //        currentHealth = 0.0f;
-    //        OnDeath();
-    //    }
-    //    healthbar.fillAmount = currentHealth / maxHealth;
-    //}
-
-    ///*
-    //Called when enemy dies
-
-    //void OnDeath()
-    //{
-    //    Debug.Log("Enemy died!");
-    //    Destroy(this.gameObject);
-    //}
-
-    ///*
-    //Called when enemy is initially touched
-    //*/
-    //void OnTriggerEnter(Collider target)
-    //{
-    //    if(target.gameObject.tag.Equals("Player"))
-    //    {
-    //        TakeDamage(2.0f);
-    //    }
-    //}
-
-    ///*
-    //Called when enemy is being touched
-    //*/
-    //void OnTriggerStay(Collider target)
-    //{
-    //    if(target.gameObject.tag.Equals("Player"))
-    //    {
-    //        TakeDamage(2.0f);
-    //    }
-    //}
 }
